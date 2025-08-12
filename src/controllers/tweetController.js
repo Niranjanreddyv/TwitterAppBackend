@@ -12,6 +12,7 @@ export const getTweetById = (req,res)=>{
 }
 
 export const createTweet = (req, res)=>{
+    console.log("tweet controller called", req.body);
     return res.json({
         message : "tweet created successfuly",
         body : req.body
