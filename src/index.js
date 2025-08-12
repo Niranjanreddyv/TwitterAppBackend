@@ -2,12 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import apiRoute from './routes/apiRoute.js'
-
-
-dotenv.config();
-
-
-const PORT = process.env.PORT || 3001;
+import { PORT } from './config/serverConfig.js';
+import connectDB from './config/dbConfig.js';
 
 const app = express();
 
@@ -28,4 +24,5 @@ app.use('/', (req,res)=>{
 
 app.listen(3000, ()=>{
     console.log(`server is running on port ${PORT}`)
+    connectDB();
 })

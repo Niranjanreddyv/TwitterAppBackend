@@ -1,5 +1,3 @@
-
-
 export const validate = (schema) => {
     return (req, res, next) => {
         try {
@@ -17,7 +15,5 @@ export const validate = (schema) => {
             });
             
         }
-
-
     };
 };
