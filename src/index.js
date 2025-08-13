@@ -4,8 +4,16 @@ import morgan from 'morgan';
 import apiRoute from './routes/apiRoute.js'
 import { PORT } from './config/serverConfig.js';
 import connectDB from './config/dbConfig.js';
+import cors from 'cors'
 
 const app = express();
+
+app.use(cors({
+  origin: "http://localhost:5173",  // Your frontend dev server
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"]
+}))
+
 
 app.use(morgan('combined'))
 app.use(express.json());

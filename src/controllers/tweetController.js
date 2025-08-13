@@ -15,6 +15,7 @@ export const getTweetById = (req,res)=>{
 }
 
 export const createTweet = async (req, res)=>{
+    console.log(req.body)
     try{
         const response = await createTweetService({
             body : req.body.body
@@ -26,7 +27,7 @@ export const createTweet = async (req, res)=>{
         })
     } catch (error) {
 
-        console.log(error);
+        // console.log(error);
         if(error.status){
             return res.status(error.status).json({
                 message : error.message,
