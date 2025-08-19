@@ -1,5 +1,9 @@
 import { Filter } from "bad-words"
-import { createTweet  as createTweetRepository} from "../repositories/tweetRepository.js";
+import { createTweet  as createTweetRepository, 
+    getTweet as getTweetRepository,
+    getTweetById as getTweetByIdRepository,
+
+} from "../repositories/tweetRepository.js";
 
 export const createTweet = async ({body}) => {
 
@@ -19,4 +23,20 @@ export const createTweet = async ({body}) => {
    // console.log("tweet get it back");
     return tweet;
 
+}
+
+export const getTweet = async () =>{
+    const tweet = await getTweetRepository();
+    return tweet;
+}
+
+export const getTweetById = async (id) => {
+    const tweet = await getTweetByIdRepository(id);
+    if(!tweet){
+        throw{
+            message : "Invalid TweetId",
+            success : false
+        };
+    }
+    return tweet;
 }

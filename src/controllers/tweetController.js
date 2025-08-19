@@ -1,17 +1,52 @@
-import { createTweet as createTweetService} from "../services/tweetService.js"
+import { createTweet as createTweetService,
+    getTweet as getTweetService,
+    getTweetById as getTweetByIdService
+} from "../services/tweetService.js"
 
 
-export const getTweet = (req,res)=>{
-    return res.json({
-        message : "common tweet"
-    })
+export const getTweet = async (req,res)=>{
+
+    try {
+        const response = await getTweetService();
+        console.log(response);
+        return res.status(200).json({
+            response,
+            success : true,
+            message : "Tweets fetched successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message : "Interanal server error",
+            success : false
+        })
+        
+    }
+    
 }
 
-export const getTweetById = (req,res)=>{
-    return res.json({
-        message : "this is tweet_id route",
-        id : req.params.id
-    })
+export const getTweetById = async (req,res)=>{
+
+    try {
+        const response = await getTweetByIdService(req.params.id);
+        console.log(response);
+        return res.status(200).json({
+            response,
+            success : true,
+            message : "Tweets fetched successfully"
+        }) 
+    } catch (error) {
+        if(error.status){
+            return res.status(error.status).json({
+                message : error.message,
+                success : false
+            });
+        }
+        return res.status(500).json({
+            message : "Interanal server error",
+            success : false
+        })
+        
+    }
 }
 
 export const createTweet = async (req, res)=>{

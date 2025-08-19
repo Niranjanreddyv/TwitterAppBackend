@@ -1,5 +1,5 @@
 export const validate = (schema) => {
-    return (req, res, next) => {
+    return function middleware(req, res, next) {
         try {
             const {error} = schema.validate(req.body);
             if(error){
