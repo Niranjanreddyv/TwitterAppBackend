@@ -1,5 +1,5 @@
 import express from 'express'
-import { createTweet, getTweet, getTweetById } from '../../controllers/tweetController.js';
+import { createTweet, deleteTweet, getTweet, getTweetById, updateTweet } from '../../controllers/tweetController.js';
 // import { createManualTweetValidator } from '../../validators/tweetManualValidator.js';
 import  {validate}  from '../../validators/JoiValidator.js';
 import  {tweetSchema}  from '../../validators/tweetJoiSchema.js';
@@ -13,5 +13,7 @@ router.get('/:id', getTweetByIdManualValidator,  getTweetById);
 
 router.post('/', validate(tweetSchema) , createTweet);
 
+router.delete('/:id' , getTweetByIdManualValidator, deleteTweet);
+router.put('/:id' , getTweetByIdManualValidator, updateTweet);
 
 export default router;

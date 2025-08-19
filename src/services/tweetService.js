@@ -2,6 +2,8 @@ import { Filter } from "bad-words"
 import { createTweet  as createTweetRepository, 
     getTweet as getTweetRepository,
     getTweetById as getTweetByIdRepository,
+    deleteTweet as deleteTweetRepository,
+    updateTweet as updateTweetRepository,
 
 } from "../repositories/tweetRepository.js";
 
@@ -35,8 +37,30 @@ export const getTweetById = async (id) => {
     if(!tweet){
         throw{
             message : "Invalid TweetId",
-            success : false
+            status: 404
         };
     }
     return tweet;
+}
+
+export const deleteTweet = async (id) => {
+    const response = await deleteTweetRepository(id);
+    if(!response){
+        throw{
+            message : "Invalid TweetId",
+            status: 404
+        };
+    }
+    return response;
+}
+
+export const updateTweet = async (id, body) => {
+    const response = await updateTweetRepository(id, body);
+    if(!response){
+        throw{
+            message : "Invalid TweetId",
+            status: 404
+        };
+    }
+    return response;
 }

@@ -1,6 +1,8 @@
 import { createTweet as createTweetService,
     getTweet as getTweetService,
-    getTweetById as getTweetByIdService
+    getTweetById as getTweetByIdService,
+    deleteTweet as deleteTweetService,
+    updateTweet as updateTweetService,
 } from "../services/tweetService.js"
 
 
@@ -47,6 +49,56 @@ export const getTweetById = async (req,res)=>{
         })
         
     }
+}
+
+export const deleteTweet = async (req, res) =>{
+    try {
+        const response = await deleteTweetService(req.params.id);
+        console.log(response);
+        return res.status(200).json({
+            response,
+            success : true,
+            message : "Tweets deleted successfully"
+        }) 
+    } catch (error) {
+        if(error.status){
+            return res.status(error.status).json({
+                message : error.message,
+                success : false
+            });
+        }
+        return res.status(500).json({
+            message : "Interanal server error",
+            success : false
+        })
+        
+    }
+}
+
+export const updateTweet = async (req,res)=>{
+
+    try {
+        const response = await updateTweetService(req.params.id, req.body.body);
+        console.log(response);
+        return res.status(200).json({
+            response,
+            success : true,
+            message : "Tweets updated successfully"
+        }) 
+    } catch (error) {
+        if(error.status){
+            return res.status(error.status).json({
+                message : error.message,
+                success : false
+            });
+        }
+        return res.status(500).json({
+            message : "Interanal server error",
+            success : false
+        })
+        
+    }
+
 }
 
 export const createTweet = async (req, res)=>{
